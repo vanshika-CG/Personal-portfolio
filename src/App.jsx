@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import "./App.css";
 import { FaReact, FaNodeJs, FaLinkedin, FaInstagram, FaTwitter, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaGithub, FaFigma } from "react-icons/fa";
 import { SiExpress, SiPostman } from "react-icons/si";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import codeimg from "./assets/codechisel.png"
 import unsplash from "./assets/unsplash.png"
 
