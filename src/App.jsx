@@ -3,6 +3,9 @@ import { motion, useInView } from "framer-motion";
 import "./App.css";
 import { FaReact, FaNodeJs, FaLinkedin, FaInstagram, FaTwitter, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaGithub, FaFigma } from "react-icons/fa";
 import { SiExpress, SiPostman } from "react-icons/si";
+import emailjs from "emailjs-com";
+import codeimg from "./assets/codechisel.png"
+import unsplash from "./assets/unsplash.png"
 
 const skills = [
   { icon: <FaReact className="skill-icon" />, name: "React.js" },
@@ -62,13 +65,24 @@ const itemVariants = {
 
 
 const education = [
-
   {
-    degree: "B.Tech in Computer Science",
-    institution: "Rai University",
-    duration: "2024 - 2028",
-    details: "Currently in 1st Semester | CGPA: 9.29",
+    degree: "Secondary Education",
+    institution: "Maheshwari Public School",
+    duration: "2020-2022",
+    details: " passed with 88% ",
   },
+  {
+  degree: "B.Tech in Computer Science",
+  institution: "Rai University",
+  duration: "2024 - 2028",
+  details: "Currently in 2nd Semester | CGPA: 9.29",
+},
+  {
+  degree: "Higher Secondary Education",
+  institution: "LP Savani International School",
+  duration: "2022 - 2024",
+  details: "cleared JEE With 88%(percentile)",
+},
 ];
 
 const EducationCard = ({ edu, index }) => {
@@ -93,32 +107,101 @@ const EducationCard = ({ edu, index }) => {
 
 
 const Contact = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [status, setStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // New loading state
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true); // Set loading state
+    setStatus("Sending...");
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message
+    };
+
+    emailjs.send(
+      "service_7ecvlxg",
+      "template_u7ttqb8",
+      templateParams,
+      "Xi9hF2ufaPNky0Pyf"
+    )
+    .then((response) => {
+      setStatus("✅ Message sent successfully!");
+      setFormData({ name: "", email: "", message: "" });
+    })
+    .catch((error) => {
+      setStatus("❌ Failed to send message. Try again.");
+      console.error(error);
+    })
+    .finally(() => {
+      setIsLoading(false); // Reset loading state after response
+    });
+  };
 
   return (
     <motion.div 
-      ref={ref} 
       className="contact-section"
       initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
       <h2 className="section-title">📞 Contact Me</h2>
       <p className="contact-text">Feel free to reach out for collaboration or any queries.</p>
-      
-      <form className="contact-form">
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea placeholder="Your Message" rows="4" required></textarea>
-        <motion.button 
-          className="contact-btn"
-          whileHover={{ scale: 1.1, boxShadow: "0px 0px 10px #4a90e2" }}
-          whileTap={{ scale: 0.9 }}
+
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+          value={formData.name}
+          onChange={handleChange}
+          disabled={isLoading} // Disable inputs when loading
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Your Email"
+          required
+          value={formData.email}
+          onChange={handleChange}
+          disabled={isLoading}
+        />
+        <textarea
+          name="message"
+          placeholder="Your Message"
+          rows="4"
+          required
+          value={formData.message}
+          onChange={handleChange}
+          disabled={isLoading}
+        ></textarea>
+
+        <motion.button
+          type="submit"
+          className={`contact-btn ${isLoading ? "loading" : ""}`} // Apply loading class
+          whileHover={isLoading ? {} : { scale: 1.1, boxShadow: "0px 0px 10px #4a90e2" }}
+          whileTap={isLoading ? {} : { scale: 0.9 }}
+          disabled={isLoading} // Disable button when loading
         >
-          Send Message
+          {isLoading ? (
+            <>
+              <span className="spinner"></span> Sending...
+            </>
+          ) : (
+            "Send Message"
+          )}
         </motion.button>
       </form>
+
+      <p className="status-message">{status}</p>
 
       <div className="contact-links">
         <a href="mailto:vanshika.jangamcg@gmail.com">📧 Email</a>
@@ -128,6 +211,7 @@ const Contact = () => {
     </motion.div>
   );
 };
+
 
 
 const App = () => {
@@ -289,6 +373,7 @@ const App = () => {
     {/* Project 1 - CodeChisel */}
     <div className="project-card">
       <h3>CodeChisel</h3>
+      <img src={codeimg} alt="codelearning" className="code"/>
       <p>A coding education platform with interactive quizzes and an integrated code editor.</p>
       <div className="project-links">
         <a href="https://github.com/vanshika-CG/codechisel" target="_blank" rel="noopener noreferrer">
@@ -303,6 +388,7 @@ const App = () => {
     {/* Project 2 - Image Explorer */}
     <div className="project-card">
       <h3>Image Explorer</h3>
+      <img src={unsplash} alt="unsplash" className="code"/>
       <p>An interactive image search app using the Unsplash API.</p>
       <div className="project-links">
         <a href="https://github.com/vanshika-CG/unsplash_api" target="_blank" rel="noopener noreferrer">
@@ -327,8 +413,9 @@ const App = () => {
           {education.map((edu, index) => (
             <EducationCard key={index} edu={edu} index={index} />
           ))}
+        
+         
         </div>
-
 
       </motion.div>
 
