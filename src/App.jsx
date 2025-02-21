@@ -6,6 +6,9 @@ import { SiExpress, SiPostman } from "react-icons/si";
 import emailjs from "@emailjs/browser";
 import codeimg from "./assets/codechisel.png"
 import unsplash from "./assets/unsplash.png"
+import amul from "./assets/amul.png"
+import youtube from "./assets/youtube.png"
+import meals from "./assets/meals.png"
 
 const skills = [
   { icon: <FaReact className="skill-icon" />, name: "React.js" },
@@ -400,7 +403,53 @@ const App = () => {
       </div>
     </div>
 
-    {/* Add More Projects Here */}
+    {/* Project 3 - amul clone*/}
+    <div className="project-card">
+      <h3>Amul Clone</h3>
+      <img src={amul} alt="amul" className="code"/>
+      <p>This project was a journey of designing smooth user experiences, and optimizing functionality to bring India’s beloved dairy brand. 🌐🍦</p>
+      <div className="project-links">
+        <a href="https://github.com/vanshika-CG/unsplash_api" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="project-icon" /> GitHub
+        </a>
+        <a href="https://your-live-demo-link.com" target="_blank" rel="noopener noreferrer">
+          🌐 Live Demo
+        </a>
+      </div>
+    </div>
+    {/* Project 4 -YouTube Clone– React Project*/}
+    <div className="project-card">
+      <h3>YouTube Clone– React Project
+      </h3>
+      <img src={youtube} alt="youtube" className="code"/>
+      <p>I developed a YouTube Clone using React.js, integrating the YouTube Data API to fetch and display videos dynamically.</p>
+      <div className="project-links">
+        <a href="https://github.com/vanshika-CG/unsplash_api" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="project-icon" /> GitHub
+        </a>
+        <a href="https://your-live-demo-link.com" target="_blank" rel="noopener noreferrer">
+          🌐 Live Demo
+        </a>
+      </div>
+    </div>
+
+    {/* Project 5 -Multi-Category Data Fetching Web*/}
+    <div className="project-card">
+      <h3>Multi-Category Data Fetching Web</h3>
+      <img src={meals} alt="meals" className="code"/>
+      <p>I built a React-based web application that allows users to explore different categories of data, including Meals, Cocktails, Harry Potter Characters, and Indian Banks. 
+</p>
+      <div className="project-links">
+        <a href="https://github.com/vanshika-CG/unsplash_api" target="_blank" rel="noopener noreferrer">
+          <FaGithub className="project-icon" /> GitHub
+        </a>
+        <a href="https://your-live-demo-link.com" target="_blank" rel="noopener noreferrer">
+          🌐 Live Demo
+        </a>
+      </div>
+    </div>
+
+    
     
   </div>
 </motion.div>
@@ -413,8 +462,7 @@ const App = () => {
           {education.map((edu, index) => (
             <EducationCard key={index} edu={edu} index={index} />
           ))}
-        
-         
+
         </div>
 
       </motion.div>
